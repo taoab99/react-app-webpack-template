@@ -1,5 +1,6 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: path.resolve(__dirname, '..', './src/index.tsx'),
@@ -17,15 +18,25 @@ module.exports = {
                         loader: 'babel-loader',
                     },
                 ],
-            },]
+            },
+            {
+                test: /\.css|s[ac]ss$/i,
+                use: ["style-loader", "css-loader", "sass-loader"],
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            }
+        ]
     },
     output: {
         path: path.resolve(__dirname, '..', './build'),
-        filename: 'bundle.js',
+        filename: 'index.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '..', './src/index.html'),
         }),
+        // new Dotenv()
     ],
 }
